@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #FCFBFF;
+  height: 100%;
+  /* max-width: 350px; */
+  width: 350px;
+  position: relative;
+}
+.title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.addBtn {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 155px;
+  background-color: transparent;
+  transition: transform ease 300ms;
+}
+
+.icon {
+  width: 30px;
+  filter: invert(35%) sepia(100%) saturate(7482%) hue-rotate(255deg) brightness(93%) contrast(89%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* cubic-bezier создает эффект легкой пружины в конце */
+  transition: 
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: rotate(-180deg) scale(0.5); /* Иконка уменьшается и сильнее крутится */
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+
+

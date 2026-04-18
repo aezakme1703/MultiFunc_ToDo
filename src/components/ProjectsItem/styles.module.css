@@ -1,0 +1,73 @@
+.item {
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid rgb(193, 192, 192);
+  background-color: #fff;
+  max-width: 100%;
+  padding: 20px 15px;
+  gap: 8px;
+  transition: all 300ms ease;
+
+}
+.item.active {
+  background-color: rgba(95, 51, 225, 1);
+  transform: scale(1.05);
+}
+.item.active .title {
+  color: #fff;
+}
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  color: inherit;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex: 1;
+}
+.marked {
+  opacity: 0.6;
+  filter: invert(50%) sepia(11%) saturate(8%) hue-rotate(353deg) brightness(97%) contrast(83%);
+}
+.marked img{
+  width: 20px;
+  display: block;
+}
+.marked.active {
+  filter: invert(87%) sepia(35%) saturate(6645%) hue-rotate(329deg) brightness(101%) contrast(101%);
+}
+.delete {
+  opacity: 0.6;
+  transition: opacity ease 200ms;
+  background-color: transparent;
+}
+.delete img{
+  transform: rotate(45deg);
+  width: 24px;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+.editInput {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 5px; /* Убираем padding */
+  margin: 0;
+  height: auto; /* Автоматическая высота */
+}

@@ -1,0 +1,87 @@
+.item {
+  cursor: grab;
+  margin-top: 10px;
+  width: 100%;
+  min-height: 200px;
+  background-color: #FCFBFF;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  border-radius: 15px;
+  position: relative;
+}
+.item:active {
+  cursor: grabbing;
+}
+
+.date {
+  font-size: 16px;
+  color: rgb(197, 197, 197);
+  margin-bottom: 6px;
+}
+.information {
+  flex: 1;
+  max-width: 300px;
+  overflow: hidden;
+  width: 100%;
+  
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+
+  overflow-wrap: break-word;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+
+}
+.descr {
+  display: -webkit-box;
+  position: relative;
+  color: #464646;
+  font-size: 14px;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow-wrap: break-word;
+}
+.btn {
+  position: absolute;
+  cursor: pointer;
+}
+.edit img {
+  width: 15px;
+}
+.delete {
+  top: 10px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  transition: opacity ease 200ms;
+}
+.delete img{
+  transform: rotate(45deg);
+  width: 24px;
+  filter: invert(35%) sepia(100%) saturate(7482%) hue-rotate(255deg) brightness(93%) contrast(89%);
+}
+.delete:hover {
+  opacity: 1;
+}
+
+hr {
+  display: block;
+  flex: 1;
+  width: 100%;
+  border: none;
+  height: 3px;
+  border-radius: 25px;
+  background-color: rgba(95, 51, 225, 1);
+  margin-bottom: 10px;
+}
+
+
+

@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  animation: fadeIn 300ms ease;
+  position: relative;
+  margin-bottom: 30px;
+  border: 1px solid var(--main-color);
+}
+
+
+.input {
+  height: 100%;
+  padding: 20px 10px;
+  border-radius: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.completeBtn {
+  cursor: pointer;
+  background-color: transparent;
+  transition: transform 300ms;
+}
+.completeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.completeBtn img{
+  width: 24px;
+  filter: invert(35%) sepia(100%) saturate(7482%) hue-rotate(255deg) brightness(93%) contrast(89%);
+}
+.completeBtn:hover {
+  transform: scale(1.1);
+}
+
+.error {
+  font-size: 12px;
+  color: rgb(242, 81, 81);
+  position: absolute;
+  top: 60px;
+  left: 5px;
+}
+
+

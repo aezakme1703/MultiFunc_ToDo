@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 30px;
+  background-color: #fff;
+  padding: 10px;
+  max-width: 300px;
+  width: 100%;
+
+}
+.searchImg {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  filter: invert(57%) sepia(0%) saturate(1129%) hue-rotate(226deg) brightness(87%) contrast(86%);
+}
+.searchInput {
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  font-weight: inherit;
+}
+.searchInput::placeholder {
+  color: #7f7f7f;
+}

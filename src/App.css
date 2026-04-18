@@ -1,0 +1,35 @@
+:root {
+  --main-color: rgba(95, 51, 225, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  color: #27104E;
+}
+.container {
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+button {
+  border: none;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+body {
+  background-color: #F3F5F9;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  max-height: 100vh;
+}
