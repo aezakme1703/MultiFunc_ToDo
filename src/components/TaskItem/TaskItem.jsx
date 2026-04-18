@@ -1,12 +1,38 @@
 
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { formatDate } from '../../helpers/formatDate'
 import { ProjectsContext } from '../../contexts/ProjectsContext'
 import { Reorder } from 'framer-motion'
-import styles from './styles.module.css'
+import styles  from './styles.module.css'
 
 export default function TaskItem({task, onStatusChange}) {
-  const { deleteTask, currentProject } = useContext(ProjectsContext)
+  const { deleteTask, currentProject, changeTaskStatus } = useContext(ProjectsContext)
+  const [ isHover, setIsHover ] = useState(false)
+
+  const ArrowsBlock = () => {
+    if (task.status === 'pending') {
+      return (
+        <>
+          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.right}`} src="src/assets/images/arrowDown.svg" alt="" />
+        </>
+      )
+    }
+    else if (task.status === 'in_progress') {
+      return (
+        <>
+          <img onClick={() => changeTaskStatus(currentProject.id, 'pending', task)} className={`${styles.arrow} ${styles.left}`} src="src/assets/images/arrowDown.svg" alt="" />
+          <img onClick={() => changeTaskStatus(currentProject.id, 'completed', task)} className={`${styles.arrow} ${styles.right}`} src="src/assets/images/arrowDown.svg" alt="" />
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.left}`} src="src/assets/images/arrowDown.svg" alt="" />
+        </>
+      )
+    }
+  }
   return (
     <Reorder.Item 
       value={task} 
@@ -17,6 +43,8 @@ export default function TaskItem({task, onStatusChange}) {
       }}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 10 }}
       className={styles.item}
+      onHoverStart={() => setIsHover(true)}
+      onHoverEnd={() => setIsHover(false)}
     >
       <div className={styles.date}>{formatDate(task.created_date)}</div>
       <div className={styles.information}>
@@ -27,6 +55,8 @@ export default function TaskItem({task, onStatusChange}) {
         </p>
       </div>
       <button onClick={() => (deleteTask(currentProject.id, task.id))} className={`${styles.btn} ${styles.delete}`}><img src="src/assets/images/deleteTask.svg" alt="" /></button>
+      
+      {isHover && <ArrowsBlock/>}
     </Reorder.Item>
   )
 }

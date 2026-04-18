@@ -143,7 +143,7 @@ export function useProjects() {
     const updatedProjects = projects.map(project => {
       if (project.id === projectId) {
         const updatedTasks = project.tasks.map(task => {
-          if (task.id = currentTask.id) {
+          if (task.id === currentTask.id) {
             return {...task, status: newStatus}
           }
           return task

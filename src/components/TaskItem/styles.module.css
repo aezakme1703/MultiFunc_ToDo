@@ -1,4 +1,4 @@
-.item {
+  .item {
   cursor: grab;
   margin-top: 10px;
   width: 100%;
@@ -6,7 +6,7 @@
   background-color: #FCFBFF;
   display: flex;
   flex-direction: column;
-  padding: 15px 20px;
+  padding: 15px 30px;
   border-radius: 15px;
   position: relative;
 }
@@ -83,5 +83,34 @@ hr {
   margin-bottom: 10px;
 }
 
+.arrow {
+  cursor: pointer;
+  width: 30px;
+  object-fit: fill;
+  position: absolute;
+  top: 50%;
+  filter: invert(50%) sepia(11%) saturate(8%) hue-rotate(353deg) brightness(97%) contrast(83%);
+  opacity: 0.5;
+  animation: fadeIn 200ms ease;
+  transition: opacity 300ms ease;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+.arrow:hover {
+  opacity: 1;
+}
+.arrow.left {
+  left: 0;
+  transform: translateY(-50%) rotate(90deg);
 
-
+}
+.arrow.right {
+  right: 0;
+  transform: translateY(-50%) rotate(-90deg);
+}
