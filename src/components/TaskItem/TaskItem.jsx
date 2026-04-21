@@ -6,6 +6,7 @@ import { Reorder } from 'framer-motion'
 import UpdateTaskModal from '../UpdateTaskModal/UpdateTaskModal'
 import { createPortal } from 'react-dom'
 import styles  from './styles.module.css'
+import { images } from '../../assets/images'
 
 export default function TaskItem({task, onStatusChange}) {
   const { deleteTask, currentProject, changeTaskStatus } = useContext(ProjectsContext)
@@ -18,22 +19,22 @@ export default function TaskItem({task, onStatusChange}) {
     if (task.status === 'pending') {
       return (
         <>
-          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.right}`} src="src/assets/images/arrowDown.svg" alt="" />
+          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.right}`} src={images.arrowDown} alt="" />
         </>
       )
     }
     else if (task.status === 'in_progress') {
       return (
         <>
-          <img onClick={() => changeTaskStatus(currentProject.id, 'pending', task)} className={`${styles.arrow} ${styles.left}`} src="src/assets/images/arrowDown.svg" alt="" />
-          <img onClick={() => changeTaskStatus(currentProject.id, 'completed', task)} className={`${styles.arrow} ${styles.right}`} src="src/assets/images/arrowDown.svg" alt="" />
+          <img onClick={() => changeTaskStatus(currentProject.id, 'pending', task)} className={`${styles.arrow} ${styles.left}`} src={images.arrowDown} alt="" />
+          <img onClick={() => changeTaskStatus(currentProject.id, 'completed', task)} className={`${styles.arrow} ${styles.right}`} src={images.arrowDown} alt="" />
         </>
       )
     }
     else {
       return (
         <>
-          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.left}`} src="src/assets/images/arrowDown.svg" alt="" />
+          <img onClick={() => changeTaskStatus(currentProject.id, 'in_progress', task)} className={`${styles.arrow} ${styles.left}`} src={images.arrowDown} alt="" />
         </>
       )
     }
@@ -62,7 +63,7 @@ export default function TaskItem({task, onStatusChange}) {
             {task.descr}
           </p>
         </div>
-        <button onClick={() => (deleteTask(currentProject.id, task.id))} className={`${styles.btn} ${styles.delete}`}><img src="src/assets/images/deleteTask.svg" alt="" /></button>
+        <button onClick={() => (deleteTask(currentProject.id, task.id))} className={`${styles.btn} ${styles.delete}`}><img src={images.deleteTask} alt="" /></button>
         
         {isHover && <ArrowsBlock/>}
       </Reorder.Item>

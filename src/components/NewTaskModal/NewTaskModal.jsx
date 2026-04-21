@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { ProjectsContext } from '../../contexts/ProjectsContext'
 import { useForm } from 'react-hook-form'
 import styles from './styles.module.css'
+import { images } from '../../assets/images'
 
 
 export default function NewTaskModal({setIsModalOpen, type}) {
@@ -65,7 +66,7 @@ export default function NewTaskModal({setIsModalOpen, type}) {
           </div>
           <button type="submit" className={styles.submitNewTask} disabled={!isValid}>Добавить</button>
         </form>
-        <button onClick={() => setIsModalOpen(false)} className={styles.close}><img src="src/assets/images/close.svg" alt="" /></button>
+        <button onClick={() => setIsModalOpen(false)} className={styles.close}><img src={images.close} alt="" /></button>
       </div>
     </div>
   )

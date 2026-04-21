@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import NewProjectItem from '../NewProjectItem/NewProjectItem'
 import ProjectItem from '../ProjectsItem/ProjectsItem'
 import styles from './styles.module.css'
+import { images } from '../../assets/images'
 
 export default function ProjectsList({projects, currentProject, setCurrentProject}) {
   const [ isCreating, setIsCreating ] = useState(false)
@@ -12,11 +13,11 @@ export default function ProjectsList({projects, currentProject, setCurrentProjec
       <h2 onClick={() => setCurrentProject(null)} className={styles.title}>Категории</h2>
       <button onClick={() => setIsCreating(!isCreating)} className={styles.addBtn}>
         <img 
-          src="src/assets/images/arrowDown.svg" 
+          src={images.arrowDown} 
           className={`${styles.icon} ${isCreating ? styles.visible : styles.hidden}`} 
         />
         <img 
-          src="src/assets/images/deleteTask.svg" 
+          src={images.deleteTask} 
           className={`${styles.icon} ${!isCreating ? styles.visible : styles.hidden}`} 
         />
       </button>

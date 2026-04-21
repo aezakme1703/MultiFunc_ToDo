@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import { ProjectsContext } from '../../contexts/ProjectsContext'
 import styles from './styles.module.css'
+import { images } from '../../assets/images'
 
 export default function ProjectItem({children, projectObj}) {
   const [ isEditing , setIsEditing ] = useState(false)
@@ -48,7 +49,7 @@ export default function ProjectItem({children, projectObj}) {
             toggleProjectMark(projectObj.id)
           }} 
           className={`${styles.marked} ${projectObj.marked && styles.active}`}>
-          <img src="src/assets/images/marked.svg" alt="" />
+          <img src={images.marked} alt="" />
         </button>
         {isEditing ? 
           <input
@@ -74,7 +75,7 @@ export default function ProjectItem({children, projectObj}) {
           deleteProject(projectObj.id)
         }}
       >
-        <img src="src/assets/images/deleteTask.svg" alt="" />
+        <img src={images.deleteTask} alt="" />
       </button>
     </div>
   )

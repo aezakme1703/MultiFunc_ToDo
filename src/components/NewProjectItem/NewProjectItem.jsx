@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { ProjectsContext } from '../../contexts/ProjectsContext'
 import { useForm } from 'react-hook-form'
 import styles from './styles.module.css'
+import { images } from '../../assets/images'
 
 export default function NewProjectItem({setIsCreating}) {
   const { addProject, setCurrentProject } = useContext(ProjectsContext)
@@ -34,7 +35,7 @@ export default function NewProjectItem({setIsCreating}) {
         onClick={handleSubmit(onSubmit)}
         disabled={!isValid}
       >
-        <img src="src/assets/images/completeAdd.svg" alt="" style={errors.title && {filter: 'invert(50%) sepia(20%) saturate(5495%) hue-rotate(330deg) brightness(99%) contrast(92%)'}}/>
+        <img src={images.completeAdd} alt="" style={errors.title && {filter: 'invert(50%) sepia(20%) saturate(5495%) hue-rotate(330deg) brightness(99%) contrast(92%)'}}/>
       </button>
       <span className={styles.error}>{errors.title ? errors.title.message : '\u00A0'}</span>
     </div>
