@@ -1,24 +1,32 @@
-
-
 import { useContext, useEffect, useState } from 'react'
 import { ProjectsContext } from '../../contexts/ProjectsContext'
 import { useForm } from 'react-hook-form'
 import styles from './styles.module.css'
 
 
-export default function NewTaskModal({setIsModalOpen, type}) {
-  const { addTask, currentProject } = useContext(ProjectsContext)
+export default function UpdateTaskModal({setIsModalOpen, task}) {
+  const { currentProject, updateTask } = useContext(ProjectsContext)
   const { 
     register, 
     handleSubmit, 
-    formState: { errors, isValid } 
+    formState: { errors, isDirty, isValid } 
   } = useForm({ 
-    mode: "onChange"
+    mode: "onChange",
+    defaultValues: {
+      title: task.title,
+      descr: task.descr
+    }
   })
   const onSubmit = (data) => {
-    addTask(currentProject.id, data.title.trim(), data.descr.trim(), type)
-    setIsModalOpen(false)
+    if (isDirty) {
+      updateTask(currentProject, task, data.title.trim(), data.descr.trim())
+      setIsModalOpen(false)
+    }
+    else {
+      console.log('net')
+    }
   }
+
   // Отработка кнопок
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -39,14 +47,14 @@ export default function NewTaskModal({setIsModalOpen, type}) {
   }, [setIsModalOpen])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()} >
-        <h2 className={styles.header}>Новая задача</h2>
+    <div className={styles.container} >
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <h2 className={styles.header}>Редактирование задачи</h2>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
           <div className={styles.inputBlock}>
             <label htmlFor="title" className={styles.label}>Заголовок</label>
-            <input 
+            <input
               style={errors.title && {borderColor: 'rgb(242, 81, 81)'}} 
               id='title' type="text" 
               className={styles.input} 
@@ -63,7 +71,7 @@ export default function NewTaskModal({setIsModalOpen, type}) {
             <span className={styles.error}>{errors.descr ? errors.descr.message : '\u00A0'}</span>
 
           </div>
-          <button type="submit" className={styles.submitNewTask} disabled={!isValid}>Добавить</button>
+          <button type="submit" className={styles.submitNewTask} disabled={!isDirty || !isValid}>Изменить</button>
         </form>
         <button onClick={() => setIsModalOpen(false)} className={styles.close}><img src="src/assets/images/close.svg" alt="" /></button>
       </div>

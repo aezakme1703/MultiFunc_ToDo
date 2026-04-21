@@ -9,16 +9,21 @@ import styles from './styles.module.css'
 
 export default function TodoPage() {
   const { 
-    projects, 
-    deleteProject,
+    projects,
+    isLoading,
+
     addProject,
-    addTask,
-    deleteTask, 
-    reloadProjects, 
+    deleteProject,
+    updateProjectTitle,
     toggleProjectMark,
+
+    addTask,
+    deleteTask,
+    updateTask,
     updateTasksOrder,
     changeTaskStatus,
-    updateProjectTitle
+
+    reloadProjects
   } = useProjects();
 
   const [currentProjectId, setCurrentProjectId] = useState(null);
@@ -37,15 +42,19 @@ export default function TodoPage() {
       {
         currentProject,
         setCurrentProject: handleSetCurrentProject,
-        deleteProject,
+
         addProject,
+        deleteProject,
+        updateProjectTitle,
+        toggleProjectMark,
+
         addTask,
         deleteTask,
-        reloadProjects,
-        toggleProjectMark,
+        updateTask,
         updateTasksOrder,
         changeTaskStatus,
-        updateProjectTitle
+
+        reloadProjects
       }
     }>
       <div className={styles.container}>

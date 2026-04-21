@@ -27,7 +27,38 @@ export function useProjects() {
     setIsLoading(false);
   }, []);
   
+  // Сохранение проектов UI + LocalStorage
+  const saveProjects = useCallback((newProjects) => {
+    setProjects(newProjects);
+    storage.set(newProjects);
+  }, []);
 
+
+  
+  const addProject = (projectTitle) => {
+    const newProject = {
+      id: crypto.randomUUID(),
+      title: projectTitle,
+      marked: false,
+      tasks: []
+    }
+    const updatedProjects = [newProject, ...projects]
+    saveProjects(updatedProjects)
+    return newProject
+  }
+  const deleteProject = (projectId) => {
+    const updatedProjects = projects.filter(project => project.id !== projectId);
+    saveProjects(updatedProjects);
+  };
+  const updateProjectTitle = (currentProject, newTitle) => {
+    const updatedProjects = projects.map(project => {
+      if (project.id === currentProject.id) {
+        return {...project, title: newTitle}
+      }
+      return project
+    })
+    saveProjects(updatedProjects)
+  }
   const toggleProjectMark = (projectId) => {
     setProjects(prevProjects => {
       const updatedProjects = prevProjects.map(project => {
@@ -41,37 +72,6 @@ export function useProjects() {
     })
   }
 
-  // Сохранение проектов UI + LocalStorage
-  const saveProjects = useCallback((newProjects) => {
-    setProjects(newProjects);
-    storage.set(newProjects);
-  }, []);
-  
-  const addProject = (projectTitle) => {
-    const newProject = {
-      id: crypto.randomUUID(),
-      title: projectTitle,
-      marked: false,
-      tasks: []
-    }
-    const updatedProjects = [newProject, ...projects]
-    saveProjects(updatedProjects)
-    return newProject
-  }
-  
-  // Удаление проекта
-  const deleteProject = (projectId) => {
-    const updatedProjects = projects.filter(project => project.id !== projectId);
-    saveProjects(updatedProjects);
-  };
-  
-  // Обновление проекта
-  const updateProject = (projectId, updates) => {
-    const updatedProjects = projects.map(project => 
-      project.id === projectId ? { ...project, ...updates } : project
-    );
-    saveProjects(updatedProjects);
-  };
   
 
   const addTask = (projectId, taskTitle, taskDescr, type) => {
@@ -90,9 +90,7 @@ export function useProjects() {
     })
     saveProjects(updatedProjects)
   }
-
-  // Удаление задачи
-  const deleteTask = useCallback((projectId, taskId) => {
+  const deleteTask = (projectId, taskId) => {
     setProjects(prevProjects => {
       const updatedProjects = prevProjects.map(project => {
         if (project.id === projectId) {
@@ -106,45 +104,13 @@ export function useProjects() {
       storage.set(updatedProjects);
       return updatedProjects;
     });
-  }, []);
-  
-  // Переключение статуса задачи
-  const toggleTaskStatus = useCallback((projectId, taskId) => {
+  };
+  const updateTask = (currentProject, currentTask, newTitle, newDescr) => {
     const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
-        return {
-          ...project,
-          tasks: project.tasks.map(task =>
-            task.id === taskId 
-              ? { ...task, completed: !task.completed }
-              : task
-          )
-        };
-      }
-      return project;
-    });
-    saveProjects(updatedProjects);
-  }, [projects, saveProjects]);
-  
-
-  const updateTasksOrder = (projectId, type, reorderedTasks) => {
-
-    const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
-        const otherTasks = project.tasks.filter(task => task.status !== type)
-        return {...project, tasks: [...reorderedTasks, ...otherTasks]}
-      }
-      return project
-    })
-    saveProjects(updatedProjects)
-  }
-
-  const changeTaskStatus = (projectId, newStatus, currentTask) => {
-    const updatedProjects = projects.map(project => {
-      if (project.id === projectId) {
+      if (project.id === currentProject.id) {
         const updatedTasks = project.tasks.map(task => {
           if (task.id === currentTask.id) {
-            return {...task, status: newStatus}
+            return {...task, title: newTitle, descr: newDescr}
           }
           return task
         })
@@ -154,16 +120,34 @@ export function useProjects() {
     })
     saveProjects(updatedProjects)
   }
-
-  const updateProjectTitle = (currentProject, newTitle) => {
+  const updateTasksOrder = (projectId, type, reorderedTasks) => {
     const updatedProjects = projects.map(project => {
-      if (project.id === currentProject.id) {
-        return {...project, title: newTitle}
+      if (project.id === projectId) {
+        const otherTasks = project.tasks.filter(task => task.status !== type)
+        return {...project, tasks: [...reorderedTasks, ...otherTasks]}
       }
       return project
     })
     saveProjects(updatedProjects)
   }
+  const changeTaskStatus = (projectId, newStatus, currentTask) => {
+    const updatedProjects = projects.map(project => {
+      if (project.id === projectId) {
+        let newCurrentTask
+        const tasksWithoutCurrentTask = project.tasks.filter(task => {
+          if (task.id === currentTask.id) {
+            newCurrentTask = {...task, status: newStatus}
+          }
+          else return task
+        })
+
+        return {...project, tasks: [newCurrentTask, ...tasksWithoutCurrentTask]}
+      }
+      return project
+    })
+    saveProjects(updatedProjects)
+  }
+
   // Загружаем данные при монтировании
   useEffect(() => {
     loadProjects();
@@ -172,16 +156,18 @@ export function useProjects() {
   return {
     projects,
     isLoading,
+
     addProject,
     deleteProject,
-    updateProject,
+    updateProjectTitle,
+    toggleProjectMark,
+
     addTask,
     deleteTask,
-    toggleTaskStatus,
-    reloadProjects: loadProjects,
-    toggleProjectMark,
+    updateTask,
     updateTasksOrder,
     changeTaskStatus,
-    updateProjectTitle
+
+    reloadProjects: loadProjects,
   };
 }

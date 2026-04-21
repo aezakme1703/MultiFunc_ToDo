@@ -1,4 +1,4 @@
-  .item {
+.item {
   cursor: grab;
   margin-top: 10px;
   width: 100%;
@@ -51,9 +51,6 @@
 .btn {
   position: absolute;
   cursor: pointer;
-}
-.edit img {
-  width: 15px;
 }
 .delete {
   top: 10px;
